@@ -37,7 +37,8 @@ jobs:
       # Optional: Add step to run tests here
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip -r release.zip . -x "venv/*"
+        #run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -77,8 +78,8 @@ jobs:
         id: deploy-to-function
         with:
           app-name: 'azure-resume-python'
-          slot-name: 'Production'
+          #slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           scm-do-build-during-deployment: true
-          enable-oryx-build: true
+          enable-oryx-build: false
           
